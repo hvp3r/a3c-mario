@@ -55,10 +55,10 @@ def run_test_agent(num_inputs, num_actions):
 
 
 if __name__ == '__main__':
-    if not os.path.exist("session"):
+    if not os.path.exists("session"):
         os.makedirs("session")
 
-        
+
     mp.set_start_method("spawn")
 
     env = Environment()

@@ -151,6 +151,10 @@ class TestAgent(object):
         self.num_actions = num_actions
         self.device = "cuda:0" if T.cuda.is_available() else "cpu"
         self.save_path = save_path
+        
+        self.model = GenericModel(self.num_inputs, self.num_actions)
+        self.model.to(self.device)
+        self.model.eval()
 
         self.load()
 
@@ -162,8 +166,7 @@ class TestAgent(object):
         return action
 
     def load(self):
-        self.model = GenericModel(self.num_inputs, self.num_actions)
         if os.path.isfile(self.save_path):
             self.model.load_state_dict(T.load(self.save_path,  map_location=self.device))
-        self.model.to(self.device)
-        self.model.eval()
+            self.model.to(self.device)
+            self.model.eval()
